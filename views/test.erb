@@ -1,0 +1,11 @@
+params:
+<pre style="white-space: pre-wrap;word-wrap: break-word;">
+<%=params%>
+</pre>
+
+env:
+<pre style="white-space: pre-wrap;word-wrap: break-word;">
+<%env.each do |k, v|%>
+ <%=k%>: <%=v%>
+<%end%>
+</pre>

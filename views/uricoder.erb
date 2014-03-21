@@ -1,0 +1,19 @@
+<form action='/uri' method="post">
+  <textarea name='uri' rows='6' cols='100'><%=params['uri']%></textarea>
+  <input type="submit" value="Decode"/>
+  <input type="submit" value="Encode" formaction="/uri_encode" formmethod="post" />
+</form>
+
+<hr/>
+Decoded uri: 
+<div>
+  <pre style="white-space: pre-wrap;word-wrap: break-word;">
+    <%=@after_uri%>
+  </pre>
+</div>
+Raw uri: 
+<div>
+  <pre style="white-space: pre-wrap;word-wrap: break-word;">
+    <%=params['uri']%>
+  </pre>
+</div>

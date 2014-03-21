@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+
+## Uri
+require 'uri'
+
+get '/' do
+  redirect '/uri'
+end
+get '/uri' do
+  erb :uricoder
+end
+post '/uri' do
+  @after_uri = URI.decode(params['uri']) if params['uri']
+  erb :uricoder
+end
+post '/uri_encode' do
+  @after_uri = URI.encode(params['uri']) if params['uri']
+  erb :uricoder
+end
+
+get '/test' do
+  erb :test
+end
+
+get '/form' do
+  puts "====#{params}"
+  erb :form
+end
+
+post '/form' do
+  redirect '/form'
+end

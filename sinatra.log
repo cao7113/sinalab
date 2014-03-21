@@ -1,0 +1,10 @@
+nohup: 忽略输入
+Puma 2.0.1 starting...
+* Min threads: 0, max threads: 16
+* Environment: development
+* Listening on tcp://localhost:4567
+== Sinatra/1.4.3 has taken the stage on 4567 for development with backup from Puma
+127.0.0.1 - - [17/Oct/2013 17:41:34] "GET /test HTTP/1.1" 200 2878 0.0034
+127.0.0.1 - - [17/Oct/2013 17:41:34] "GET /favicon.ico HTTP/1.1" 404 448 0.0008
+127.0.0.1 - - [17/Oct/2013 18:00:03] "GET /test?url=http://localhost/world%2523hello?age=qian&laopo=yang&name=cao HTTP/1.1" 200 3234 0.0018
+127.0.0.1 - - [17/Oct/2013 18:00:03] "GET /favicon.ico HTTP/1.1" 404 448 0.0007

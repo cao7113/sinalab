@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Web Sql database</title>
+    <script type="text/javascript" >
+      var db = openDatabase("test", '1.0', 'Test Websql database', 2*1024*1024)
+      if(!db){
+        alert("Not support!")
+      }else{
+        db.transaction(function (tx){
+          tx.executeSql("create table if not exists docs(title text, body text, time integer)", [])
+        })
+        console.log("write a record!")
+      }
+      function insertDoc(){
+        db.transaction(function(tx){
+          tx.executeSql("insert into docs values(?, ?, ?)", ['work on tianji', document.getElementById("doc").value, new Date().getTime()], function(tx, rs){
+            console.log('ok')}, function(tx,err){alert('fail:'+err)})
+        })
+        drawDb()
+        console.log("write a record!")
+      }
+      function drawDb(){
+        var docs = document.getElementById("docs")
+        docs.innerHTML = ""
+        db.transaction(function(tx){
+          tx.executeSql("select * from docs", [], function(tx, rs){
+            document.getElementById("total").innerHTML = rs.rows.length
+            for(var i = 0; i < rs.rows.length; i++){
+              var docp = document.createElement('p')
+              var row = rs.rows.item(i)
+              var t = new Date()
+              t.setTime(row.time)
+              docp.innerHTML = "title:" + row.title + ", body: " + row.body + ", time: " + t.toLocaleDateString()+" "+t.toLocaleTimeString()
+              docs.appendChild(docp)
+            }
+          })
+        })
+      }
+      function clearDb(){
+        db.transaction(function(tx){
+          tx.executeSql("delete from docs", [])
+        })
+        drawDb()
+        console.log("clear")
+      }
+      function init(){
+        alert("on init load")
+        //load init data from remote server
+        drawDb()
+        //maintain locally
+        //merge and sync with remote
+
+        //too complex, use static
+      }
+
+      function sync_data(){
+
+      }
+    </script>
+  </head>
+  <body onload="drawDb()">
+    <pre>
+Support: chrome
+Not: Firefox
+</pre>
+    <input type="text" value="Hi websql database" placeholder="something..." id="doc" size=60 /><br/>
+    <button id="insert_doc" onclick="insertDoc()">Insert Doc</button>
+    <button id="clear_db" onclick="clearDb()">Clear DB</button>
+    <button id="sync_data" onclick="sync_data()">Sync DB</button>
+    <span id="total"></span>
+    <div id="docs">
+    </div>
+  </body>
+</html>
